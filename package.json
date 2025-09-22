@@ -47,6 +47,7 @@
   "dependencies": {
     "js-cookie": "^3.0.1"
   },
+  "type": "module",
   "devDependencies": {
     "@playwright/test": "^1.48.0",
     "@rspack/cli": "^1.0.3",

@@ -1,19 +1,26 @@
-const path = require('path');
-const {rspack} = require('@rspack/core');
-const services = require('./site/services.json');
-const package = require('./package.json');
-const {standaloneEntries} = require('./build/entries');
-const {
+import path from 'path';
+import {rspack} from '@rspack/core';
+import {standaloneEntries} from './build/entries.mjs';
+import {
 	templatePlugin,
 	featureTemplatePlugin,
 	assetsPlugin,
 	matomoPlugin
-} = require('./build/site');
+} from './build/site.mjs';
+import {fileURLToPath} from 'url';
+import {createRequire} from 'module';
+
+const require = createRequire(import.meta.url);
+const services = require('./site/services.json');
+const pkg = require('./package.json');
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const fullPath = path.resolve.bind(path, __dirname);
 const isDev = process.env.NODE_ENV === 'development';
 
-module.exports = {
+export default {
 	mode: isDev ? 'development' : 'production',
 	devtool: isDev ? 'eval-source-map' : false,
 	devServer: {
@@ -43,7 +50,7 @@ module.exports = {
 					options: {
 						env: {
 							// @see https://github.com/swc-project/swc-loader/issues/37#issuecomment-1233829398
-							targets: package.browserslist
+							targets: pkg.browserslist
 						},
 						jsc: {
 							externalHelpers: true,
@@ -120,11 +127,6 @@ module.exports = {
 			lang: 'fr'
 		}),
 		featureTemplatePlugin({title: 'Styling', feature: 'styling'}),
-		featureTemplatePlugin({
-			title: 'Contextual consent',
-			feature: 'contextual',
-			template: 'contextual'
-		}),
 		featureTemplatePlugin({
 			title: "Intégration au système de design de l'état",
 			feature: 'dsfr',
