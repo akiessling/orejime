@@ -10,6 +10,7 @@ export const DefaultConfig: Partial<Config> = {
 	privacyPolicyUrl: '',
 	forceModal: false,
 	forceBanner: false,
+	suppressUi: false,
 	translations: {} as Translations,
 	purposes: []
 };

@@ -202,6 +202,15 @@ var orejimeConfig = {
   forceBanner: false,
 
   // [optional]
+  // If `suppressUi` is set to true, Orejime will not automatically show the
+  // banner or modal on initial load, even if consent is required.
+  // This value is evaluated when Orejime initializes, so it can be the result
+  // of a function call checking a global variable, the current URL, etc.
+  // Manual calls to `orejime.prompt()` still work.
+  // (defaults to false)
+  suppressUi: false,
+
+  // [optional]
   // You can overwrite existing translations and add translations for your
   // purpose descriptions and purposes. See `src/translations` for a full
   // list of translations that can be overwritten.
@@ -340,6 +349,13 @@ Now that you installed and configured Orejime, you should see it greet you!
 Anytime the `window.orejimeConfig` variable is set with a valid configuration,
 Orejime will pick it up and start.
 
+If you want Orejime to initialize without automatically showing any UI on first
+load, set `suppressUi: true` in the configuration. This only affects the initial
+automatic display; calling `orejime.prompt()` later will still open the consent
+modal. `suppressUi` is evaluated when Orejime initializes, so you can compute it
+beforehand from runtime conditions such as a global JavaScript variable or URL
+parameters.
+
 In case you don't set this variable, Orejime can still be launched
 programatically by passing it a configuration:
 
@@ -456,6 +472,8 @@ Functions and references are made available on the global scope:
 ### Orejime instance
 
 - `orejime.prompt()`: opens the consent modal
+- `suppressUi: true` only disables the automatic initial display of Orejime UI;
+  it does not affect `orejime.prompt()`
 - `orejime.manager`: the core consent manager
 - `orejime.config`: the complete config object used
 

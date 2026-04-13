@@ -96,6 +96,7 @@ export interface Config {
 	logo?: ImageDescriptor;
 	forceBanner: boolean;
 	forceModal: boolean;
+	suppressUi?: boolean;
 	privacyPolicyUrl: string;
 	translations: Translations;
 }

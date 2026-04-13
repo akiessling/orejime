@@ -10,6 +10,7 @@ import ContextualConsentsEffect from './ContextualConsentsEffect';
 export default (config: Config, manager: Manager) => {
 	const element = getRootElement(config.orejimeElement);
 	const apiRef = createRef<MainApi>();
+	const shouldAutoShow = !config.suppressUi;
 	const show = once(() => {
 		render(
 			<Context.Provider
@@ -38,12 +39,12 @@ export default (config: Config, manager: Manager) => {
 	contextualEffect.apply(manager.getAllConsents());
 
 	manager.on('dirty', (isDirty) => {
-		if (isDirty) {
+		if (isDirty && shouldAutoShow) {
 			show();
 		}
 	});
 
-	if (manager.isDirty()) {
+	if (manager.isDirty() && shouldAutoShow) {
 		show();
 	}
 
