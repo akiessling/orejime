@@ -57,6 +57,13 @@ const Modal: ModalComponent = ({
 	children
 }) => {
 	const t = useTranslations();
+	const handleDescriptionClick = (event: MouseEvent) => {
+		const target = event.target as HTMLElement | null;
+
+		if (target?.closest('a')) {
+			onClose();
+		}
+	};
 
 	return (
 		<Dialog
@@ -84,7 +91,7 @@ const Modal: ModalComponent = ({
 						{t.modal.title}
 					</h1>
 
-					<p className="orejime-Modal-description">
+					<div className="orejime-Modal-description">
 						{isForced && needsUpdate ? (
 							<p className="orejime-Modal-description">
 								<strong className="orejime-Modal-changes">
@@ -93,21 +100,33 @@ const Modal: ModalComponent = ({
 							</p>
 						) : null}
 
-						{template(t.modal.description, {
-							privacyPolicy: (
-								<a
-									key="privacyPolicyLink"
-									className="orejime-Modal-privacyPolicyLink"
-									onClick={() => {
-										onClose();
-									}}
-									href={privacyPolicyUrl}
-								>
-									{t.modal.privacyPolicyLabel}
-								</a>
-							)
-						})}
-					</p>
+						{t.modal.descriptionHtml ? (
+							<p
+								className="orejime-Modal-description"
+								onClick={handleDescriptionClick}
+								dangerouslySetInnerHTML={{
+									__html: t.modal.descriptionHtml
+								}}
+							/>
+						) : (
+							<p className="orejime-Modal-description">
+								{template(t.modal.description, {
+									privacyPolicy: (
+										<a
+											key="privacyPolicyLink"
+											className="orejime-Modal-privacyPolicyLink"
+											onClick={() => {
+												onClose();
+											}}
+											href={privacyPolicyUrl}
+										>
+											{t.modal.privacyPolicyLabel}
+										</a>
+									)
+								})}
+							</p>
+						)}
+					</div>
 				</div>
 
 				<form

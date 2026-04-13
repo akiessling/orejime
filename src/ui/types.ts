@@ -31,6 +31,7 @@ export interface BannerTranslations {
 export interface ModalTranslations {
 	title: string;
 	description: string;
+	descriptionHtml?: string;
 	privacyPolicyLabel: string;
 	close: string;
 	closeTitle: string;
