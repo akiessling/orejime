@@ -22,7 +22,6 @@ const LaraGlobalConsentActions = ({onSave}: LaraGlobalConsentActionsProps) => {
 			<button
 				type="button"
 				className="orejime-Button orejime-Button--info orejime-PurposeToggles-button orejime-PurposeToggles-disableAll"
-				aria-disabled={manager.areAllPurposesDisabled()}
 				onClick={() => {
 					manager.declineAll();
 					onSave();
@@ -35,7 +34,6 @@ const LaraGlobalConsentActions = ({onSave}: LaraGlobalConsentActionsProps) => {
 			<button
 				type="button"
 				className="orejime-Button orejime-Button--info orejime-PurposeToggles-button orejime-PurposeToggles-enableAll"
-				aria-disabled={manager.areAllPurposesEnabled()}
 				onClick={() => {
 					manager.acceptAll();
 					onSave();
