@@ -59,8 +59,9 @@ const Modal: ModalComponent = ({
 	const t = useTranslations();
 	const handleDescriptionClick = (event: MouseEvent) => {
 		const target = event.target as HTMLElement | null;
+		const link = target?.closest('a');
 
-		if (target?.closest('a')) {
+		if (link && link.getAttribute('target')?.toLowerCase() !== '_blank') {
 			onClose();
 		}
 	};
